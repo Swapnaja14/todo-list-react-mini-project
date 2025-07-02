@@ -2,7 +2,6 @@ import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 export default function TodoList() {
-<<<<<<< HEAD
     let [todos, setTodos] = useState([{ task: "sample task", id: uuidv4() }]);
     let [newTodo, setNewTodo] = useState("");
 
@@ -10,13 +9,6 @@ export default function TodoList() {
         setTodos((prevTodos) => {
             return [...prevTodos, { task: newTodo, id: uuidv4() }]
         });
-=======
-    let [todos, setTodos] = useState([{task: "sample task", id: uuidv4()}]);
-    let [newTodo, setNewTodo] = useState("");
-
-    let addNewTask = () => {
-        setTodos([...todos, {task: newTodo, id: uuidv4()}]);
->>>>>>> ed63f3bebe2ef8fe48d97345ca5bd182bed237d9
         setNewTodo("");
     }
 
@@ -36,15 +28,20 @@ export default function TodoList() {
                 onChange={updateTodoValue}></input>
             <button onClick={addNewTask}>Add Task</button>
 
-        <br></br><br></br>
-        <h3>Add Todo</h3>
-        <ul>
-            {
-                todos.map((todo) => (
-                    <li key={todo.id}>{todo.task}</li>
-                ))
-            }
-        </ul>
+            <br></br><br></br>
+            <h3>Add Todo</h3>
+            <ul>
+                {
+                    todos.map((todo) => (
+                        <li key={todo.id}>
+                            <span>{todo.task}</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+        {/* because of the arrow function, our deleteTodo will not get executed on its own and will get executed only when the button is clicked */}
+                        </li>
+                    ))
+                }
+            </ul>
         </div>
     );
 }
