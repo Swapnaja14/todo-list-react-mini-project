@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function TodoList() {
-    let [todos, setTodos] = useState(["sample task"]);
+    let [todos, setTodos] = useState([{task: "sample task", id: uuidv4()}]);
     let [newTodo, setNewTodo] = useState("");
 
     let addNewTask = () => {
-        setTodos([...todos, newTodo]);
+        setTodos([...todos, {task: newTodo, id: uuidv4()}]);
         setNewTodo("");
     }
 
@@ -21,11 +22,11 @@ export default function TodoList() {
         <button onClick={addNewTask}>Add Task</button>
 
         <br></br><br></br>
-        <h3 >Add Todo</h3>
+        <h3>Add Todo</h3>
         <ul>
             {
                 todos.map((todo) => (
-                    <li>{todo}</li>
+                    <li key={todo.id}>{todo.task}</li>
                 ))
             }
         </ul>
