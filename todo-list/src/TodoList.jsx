@@ -22,13 +22,25 @@ export default function TodoList() {
     }
 
     let upperCaseAll = () => {
-        setTodos((todos) => todos.map((todo) => {
+        setTodos((prevTodos) => prevTodos.map((todo) => {
             return {
                 ...todo, task: todo.task.toUpperCase(),
             };
         })
         )};
 
+    let upperCaseOne = (id) => {
+        setTodos((prevTodos) => prevTodos.map((todo) => {
+            if (todo.id == id) {
+                return {
+                    ...todo, task: todo.task.toUpperCase()
+                };
+            }
+            else {
+                return todo;
+            }
+        }))
+    }
     return (
         <div>
             <input placeholder="add a task"
@@ -45,6 +57,8 @@ export default function TodoList() {
                             <span>{todo.task}</span>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button onClick={() => upperCaseOne(todo.id)}>To UpperCase</button>
         {/* because of the arrow function, our deleteTodo will not get executed on its own and will get executed only when the button is clicked */}
                         </li>
                     ))
