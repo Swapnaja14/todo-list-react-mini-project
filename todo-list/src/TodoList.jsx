@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import './TodoList.css'
 
 export default function TodoList() {
     let [todos, setTodos] = useState([{ task: "sample task", id: uuidv4(), isDone: false }]);
@@ -27,15 +28,17 @@ export default function TodoList() {
                 ...todo, task: todo.task.toUpperCase(),
             };
         })
-        )};
+        )
+    };
 
-        let markAllAsDone = () => {
+    let markAllAsDone = () => {
         setTodos((prevTodos) => prevTodos.map((todo) => {
             return {
                 ...todo, isDone: true
             };
         })
-        )};
+        )
+    };
 
     let upperCaseOne = (id) => {
         setTodos((prevTodos) => prevTodos.map((todo) => {
@@ -64,11 +67,11 @@ export default function TodoList() {
     }
 
     return (
-        <div>
+        <div className="todo-container">
             <input placeholder="add a task"
                 value={newTodo}
-                onChange={updateTodoValue}></input>
-            <button onClick={addNewTask}>Add Task</button>
+                onChange={updateTodoValue}></input>&nbsp;&nbsp;&nbsp;
+            <button onClick={addNewTask}><i className="fi fi-br-plus"></i></button>
 
             <br></br><br></br>
             <h3>Add Todo</h3>
@@ -76,20 +79,22 @@ export default function TodoList() {
                 {
                     todos.map((todo) => (
                         <li key={todo.id}>
-                            <span style={todo.isDone? {textDecorationLine : "line-through", textDecorationColor: "red"} : {}} > {todo.task}</span>
+                            <span style={todo.isDone ? { textDecorationLine: "line-through", textDecorationColor: "red" } : {}} > {todo.task}</span>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                            <button onClick={() => deleteTodo(todo.id)}><i className="fi fi-br-cross"></i></button>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button onClick={() => upperCaseOne(todo.id)}>To UpperCase</button>
-                            <button onClick={() => markAsDone(todo.id)}>Mark As Done</button>
-        {/* because of the arrow function, our deleteTodo will not get executed on its own and will get executed only when the button is clicked */}
+                            <button onClick={() => upperCaseOne(todo.id)}><i class="fi fi-br-a"></i></button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button onClick={() => markAsDone(todo.id)}><i className="fi fi-br-check"></i></button>
+                            {/* because of the arrow function, our deleteTodo will not get executed on its own and will get executed only when the button is clicked */}
                         </li>
                     ))
                 }
             </ul>
             <br></br>
-            <button onClick={upperCaseAll}>Uppercase All</button>
-            <button onClick={markAllAsDone}>Mark All as Done</button>
+            <button onClick={upperCaseAll}><i class="fi fi-br-a"></i><i class="fi fi-br-a"></i><i class="fi fi-br-a"></i></button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            <button onClick={markAllAsDone}><i class="fi fi-br-check"></i><i class="fi fi-br-check"></i><i class="fi fi-br-check"></i></button>
         </div>
     );
 }
